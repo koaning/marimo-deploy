@@ -11,9 +11,8 @@ COPY . .
 EXPOSE 8080
 
 # Install the required dependencies
-RUN python -m pip install uv
-RUN uv venv && uv pip install -r requirements.txt 
-RUN uv pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0.tar.gz
+RUN python -m venv venv 
+RUN venv/bin/python -m pip install -r requirements.txt && venv/bin/python -m spacy download en_core_web_sm
 
 # Command to run the application
-CMD ["uv", "run", "app.py"]
+CMD ["venv/bin/python", "app.py"]

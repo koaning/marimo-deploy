@@ -1,5 +1,4 @@
 fastapi==0.115.6
 marimo
-spacy==3.5.0
+spacy==3.8.0
 uvicorn==0.34.0
-numpy<2.0.0
