@@ -1,4 +1,6 @@
 fastapi==0.115.6
 marimo
-spacy==3.8.0
+spacy==3.7
 uvicorn==0.34.0
+pytest
+httpx
