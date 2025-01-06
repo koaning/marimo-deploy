@@ -11,8 +11,8 @@ COPY . .
 EXPOSE 8080
 
 # Install the required dependencies
-RUN python -m venv venv 
-RUN venv/bin/python -m pip install -r requirements.txt && venv/bin/python -m spacy download en_core_web_sm
+RUN python -m pip install uv
+RUN python -m uv venv --seed && uv pip install -r requirements.txt && uv run spacy download en_core_web_sm
 
 # Command to run the application
-CMD ["venv/bin/python", "app.py"]
+CMD [".venv/bin/python", "app.py"]
