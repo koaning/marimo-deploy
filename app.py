@@ -1,14 +1,3 @@
-# /// script
-# requires-python = ">=3.10"
-# dependencies = [
-#     "fastapi==0.115.6",
-#     "marimo",
-#     "pydantic==2.10.4",
-#     "spacy==3.8.3",
-#     "uvicorn==0.34.0",
-# ]
-# ///
-
 import marimo
 
 __generated_with = "0.10.9"
@@ -201,14 +190,14 @@ def _():
     import spacy
     from spacy.displacy import render
 
-    # Note that if you use `uv` to install packages that you will want to install the spaCy model by using this URL directly. 
-
-    # ```
-    # uv pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0.tar.gz
-    # ```
-
-    # The usual `spacy download` command has not been ported to understand `uv` just yet.
+    # Note that if you use `uv` to install packages that you will want to create a venv with --seed. 
+    # Otherwise the `spacy download` command will break. 
     return BaseModel, FastAPI, HTMLResponse, mo, render, spacy
+
+
+@app.cell
+def _():
+    return
 
 
 if __name__ == "__main__":
