@@ -124,16 +124,7 @@ def _(mo):
 
         ### Docker 
 
-        Because Marimo is just a Python script it is also pretty easy to come up with a `Dockerfile` to deploy the whole thing. The only thing that is a bit "different" about this setup is that one might usually prefer `uv` these days, but `uv` cannot download spaCy models just due to an upstream issue. That's why this file sticks to `pip` for now. 
-
-        ```Dockerfile
-        FROM python:3.12
-        WORKDIR /app
-        COPY . .
-        EXPOSE 8080
-        RUN python -m venv venv && venv/bin/python -m pip install -r requirements.txt && venv/bin/python -m spacy download en_core_web_sm
-        CMD ["venv/bin/python", "app.py"]
-        ```
+        Because Marimo is just a Python script it is also pretty easy to come up with a `Dockerfile` to deploy the whole thing. 
 
         ### Want to do more? 
 
