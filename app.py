@@ -152,32 +152,36 @@ def _(mo):
 
         - Right now the repository assumes a deployment on [fly.io](fly.io) but you can also use the setup to deploy elsewhere, like Huggingface.
         - You can choose to use a custom spaCy model that you trained yourself or many an LLM model like [GliNER](https://calmcode.io/shorts/gliner.py). Be aware that these kinds of models do require a fair bit more RAM so you may not be able to run this stack on free-tiered environments.
-        - We may be able to extend this idea to scikit-learn models where we also train the model from inside the notebook. We need to take a few extra steps to make sure that we do not train if we do not need to. 
+        - We may be able to extend this idea to scikit-learn models where we also train the model from inside the notebook. We need to take a few extra steps to make sure that we do not train if we do not need to.
         """
     )
     return
 
 
-app._unparsable_cell(
-    r"""
-    dtyoutdimport pytest
+@app.cell
+def _(app):
+    import pytest
     from starlette.testclient import TestClient
 
     client = TestClient(app)
 
-    @pytest.mark.parametrize(\"path\", (\"/health\", \"/healthz\"))
+    @pytest.mark.parametrize("path", ("/health", "/healthz"))
     def test_heatlh_endpoints(path):
         resp = client.get(path)
         assert resp.status_code == 200
 
-    @pytest.mark.parametrize(\"path\", (\"/api/json\", \"/api/viz\"))
+    @pytest.mark.parametrize("path", ("/api/json", "/api/viz"))
     def test_api_endpoints(path):
-        json_blob = {\"text\": \"Hi. My name is Vincent\"}
+        json_blob = {"text": "Hi. My name is Vincent"}
         resp = client.post(path, json=json_blob)
         assert resp.status_code == 200
-    """,
-    name="_"
-)
+    return (
+        TestClient,
+        client,
+        pytest,
+        test_api_endpoints,
+        test_heatlh_endpoints,
+    )
 
 
 @app.cell
